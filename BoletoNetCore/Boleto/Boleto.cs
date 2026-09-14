@@ -63,6 +63,7 @@ namespace BoletoNetCore
         public DateTime DataEmissao { get; set; } = DateTime.Now;
         public DateTime DataVencimento { get; set; }
         public DateTime DataCredito { get; set; }
+        public DateTime? DataLimitePagamento { get; set; }
 
         public string NumeroDocumento { get; set; } = string.Empty;
         public string NumeroControleParticipante { get; set; } = string.Empty;
@@ -236,6 +237,7 @@ namespace BoletoNetCore
         public IBanco Banco { get; set; }
         public Pagador Pagador { get; set; } = new Pagador();
         public Pagador Avalista { get; set; } = new Pagador();
+        public Beneficiario Cedente { get; set; } = new Beneficiario();
         public CodigoBarra CodigoBarra { get; } = new CodigoBarra();
         public ObservableCollection<GrupoDemonstrativo> Demonstrativos { get; } = new ObservableCollection<GrupoDemonstrativo>();
         public string ParcelaInformativo { get; set; } = string.Empty;

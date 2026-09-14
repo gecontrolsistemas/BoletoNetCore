@@ -28,7 +28,12 @@ namespace BoletoNetCore
 
             boleto.NossoNumero = boleto.NossoNumero.PadLeft(13, '0');
             boleto.NossoNumeroDV = boleto.NossoNumero.CalcularDVSantander();
-            boleto.NossoNumeroFormatado = $"{boleto.NossoNumero}-{boleto.NossoNumeroDV}";
+            // Nesta carteira o nosso número tem 13 posições e o dígito verificador não faz parte
+            // dele: o campo livre do código de barras leva as 13 posições sem DV. Imprimir
+            // "número-DV" mostrava no boleto um número diferente do que foi enviado na remessa —
+            // exatamente a divergência que o Santander apontou na homologação. O boleto emitido
+            // pelo próprio banco traz as 13 posições sem traço e sem dígito.
+            boleto.NossoNumeroFormatado = boleto.NossoNumero;
         }
 
         public string FormataCodigoBarraCampoLivre(Boleto boleto)

@@ -187,8 +187,11 @@ namespace BoletoNetCore
                 reg.Adicionar(TTiposDadoEDI.ediAlphaAliEsquerda_____, 0335, 015, 0, boleto.Pagador.Endereco.Cidade, ' ');
                 reg.Adicionar(TTiposDadoEDI.ediAlphaAliEsquerda_____, 0350, 002, 0, boleto.Pagador.Endereco.UF, ' ');
                 reg.Adicionar(TTiposDadoEDI.ediAlphaAliEsquerda_____, 0352, 031, 0, string.Empty, ' ');
+                // Posições 383-385: Conta Cobrança nova de 10 posições (9 dígitos + DV) - Manual H7800 CNAB400 Santander
+                // 383     = Identificador do complemento: "I" indica uso de conta cobrança com 10 posições
+                // 384-385 = Complemento da conta cobrança: 9º dígito da conta + dígito verificador (CCCCCCCCC-D)
                 reg.Adicionar(TTiposDadoEDI.ediAlphaAliEsquerda_____, 0383, 001, 0, 'I', ' ');
-                reg.Adicionar(TTiposDadoEDI.ediAlphaAliEsquerda_____, 0384, 002, 0, 32, ' ');
+                reg.Adicionar(TTiposDadoEDI.ediNumericoSemSeparador_, 0384, 002, 0, boleto.Banco.Beneficiario.ContaBancaria.Conta.Right(1) + boleto.Banco.Beneficiario.ContaBancaria.DigitoConta, '0');
 
                 reg.Adicionar(TTiposDadoEDI.ediAlphaAliEsquerda_____, 0386, 009, 0, string.Empty, ' ');
                 reg.Adicionar(TTiposDadoEDI.ediNumericoSemSeparador_, 0395, 006, 0, numeroRegistroGeral, '0');

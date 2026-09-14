@@ -1,29 +1,54 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
+  <!--
+    Identidade do pacote publicado pelo fork. O PackageId é outro de propósito: este pacote não é
+    o BoletoNetCore do nuget.org, e um id igual com conteúdo diferente é a forma mais rápida de
+    alguém restaurar uma coisa achando que restaurou outra.
+
+    A versão diz de onde veio e o que foi acrescentado: 3.0.1.563 é o master do upstream um commit
+    além do 3.0.1.562 publicado em 24/08/2026, e `gecontrol.N` numera os nossos patches sobre ele.
+    Ela é imutável — cada boleto grava a versão que o gerou (MaestroBoleto §28.2), e reaproveitar
+    um número tornaria esse registro mentira.
+  -->
   <PropertyGroup>
-    <PackageId>BoletoNetCore</PackageId>
-    <title>BoletoNetCore</title>
-    <version>3.0.0</version>
-    <authors>BoletoNetCore</authors>
-    <owners>BoletoNetCore</owners>
-    <projectUrl>https://github.com/BoletoNet/BoletoNetCore/</projectUrl>
-    <iconUrl>https://https://avatars2.githubusercontent.com/u/10621326?v=3amp;s=200</iconUrl>
-    <requireLicenseAcceptance>true</requireLicenseAcceptance>
-    <description>
-      BoletoNetCore is a library developed for use in Brazil, given it has been programmed with Brazilian retail legislation and business rules for bank registered billing integration.
-      Boleto.Net é um componente desenvolvido em C# e ASP.Net e contempla as seguintes funcionalidades:
-      Emissão e Impressão de Boletos Bancários
-      Geração de Arquivo de Remessa (CNAB 240 e 400)
-      Leitura do Arquivo de Retorno (CNAB 240 e 400)</description>
-    <summary>BoletoNetCore is a library developed for use in Brazil, given it has been programmed with Brazilian retail legislation and business rules for bank registered billing integration.</summary>
-    <releaseNotes>A versão 3.0 está sendo reescrita. Alguns bancos/carteiras podem não estar disponíveis.</releaseNotes>
-    <tags>boleto cnab banco</tags>
+    <PackageId>Gecontrol.BoletoNetCore</PackageId>
+    <Title>Gecontrol.BoletoNetCore</Title>
+    <Version>3.0.1.563-gecontrol.1</Version>
+    <Authors>BoletoNetCore; Gecontrol Sistemas</Authors>
+    <Company>Gecontrol Sistemas</Company>
+    <PackageProjectUrl>https://github.com/gecontrolsistemas/BoletoNetCore/</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/gecontrolsistemas/BoletoNetCore.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryBranch>gecontrol</RepositoryBranch>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageReadmeFile>PACOTE.md</PackageReadmeFile>
+    <Description>
+      Fork de BoletoNetCore (github.com/BoletoNet/BoletoNetCore, MIT) mantido pela Gecontrol Sistemas.
+      O branch `master` do fork espelha o upstream; este pacote sai do branch `gecontrol`, que carrega
+      os patches nossos sobre ele — cada um candidato a PR para o upstream.
+      Patches nesta versão: data e hora de geração do arquivo de remessa informadas por quem gera,
+      em vez de lidas do relógio do processo (IBanco.DataGeracao).
+    </Description>
+    <PackageReleaseNotes>
+      Base: upstream/master em 01/09/2026, um commit além do 3.0.1.562 do nuget.org.
+      gecontrol.1: IBanco.DataGeracao — a data de gravação da remessa e o nome do arquivo deixam de
+      vir de DateTime.Now. Sem atribuição o comportamento é o de antes, byte a byte.
+    </PackageReleaseNotes>
+    <PackageTags>boleto cnab banco</PackageTags>
     <TargetFramework>netstandard2.0</TargetFramework>
     <ApplicationIcon />
     <OutputType>Library</OutputType>
     <StartupObject />
     <IsPackable>true</IsPackable>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+
+    <!--
+      PDB dentro da dll e fontes junto: quem depura uma diferença de byte numa remessa entra na
+      biblioteca sem servidor de símbolos, que é exatamente a hora em que ele não existe.
+    -->
+    <DebugType>embedded</DebugType>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
   </PropertyGroup>
 
   <ItemGroup>
@@ -37,6 +62,7 @@
   <ItemGroup>
     <None Remove="BoletoImpressao\Parts\Pix.html" />
     <None Remove="Imagens\085.jpg" />
+    <None Include="PACOTE.md" Pack="true" PackagePath="\" />
   </ItemGroup>
 
   <ItemGroup>

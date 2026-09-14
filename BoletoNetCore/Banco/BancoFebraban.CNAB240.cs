@@ -147,5 +147,86 @@ namespace BoletoNetCore
         public virtual void LerDetalheRetornoCNAB240SegmentoA(ref Boleto boleto, string registro)
         {
         }
+
+        /// <summary>
+        /// Segmento G - Varredura DDA (Débito Direto Autorizado). Diferente do retorno de cobrança
+        /// (segmentos T/U), a varredura traz os boletos registrados a pagar contra o sacado, com layout
+        /// padrão CNAB240 FEBRABAN do segmento G. Cada segmento G representa um título a pagar.
+        /// </summary>
+        public virtual void LerDetalheRetornoCNAB240SegmentoG(ref Boleto boleto, string registro)
+        {
+            try
+            {
+                // Código de movimento (situação do título no DDA)
+                boleto.CodigoMovimentoRetorno = registro.Substring(15, 2);
+                boleto.DescricaoMovimentoRetorno = Cnab.MovimentoVarreduraDDACnab240(boleto.CodigoMovimentoRetorno);
+
+                // Código de barras (campo livre do segmento G - 44 posições)
+                var codigoBarras = registro.Substring(17, 44).Trim();
+                if (codigoBarras.Length == 44)
+                {
+                    boleto.CodigoBarra.CodigoDeBarras = codigoBarras;
+
+                    // Linha digitável derivada do código de barras. Boletos de cobrança usam o layout
+                    // padrão (campo livre nas posições 20-44); arrecadação (inicia em 8) tem outro layout.
+                    if (!codigoBarras.StartsWith("8"))
+                    {
+                        boleto.CodigoBarra.CampoLivre = codigoBarras.Substring(19, 25);
+                        Banco.FormataLinhaDigitavel(boleto);
+                    }
+                }
+
+                // Número do documento de cobrança (DP, NF...) - posições 148-162 do segmento G.
+                boleto.NumeroDocumento = registro.Substring(147, 15).Trim();
+
+                // Data de vencimento (DDMMAAAA)
+                var vencimento = Utils.ToInt32(registro.Substring(107, 8));
+                if (vencimento > 0)
+                    boleto.DataVencimento = Utils.ToDateTime(vencimento.ToString("##-##-####"));
+
+                // Valor do título
+                boleto.ValorTitulo = Convert.ToDecimal(registro.Substring(115, 15)) / 100;
+
+                // Cedente (fornecedor/beneficiário) do título - segmento G da varredura DDA.
+
+                // Tipo de inscrição do cedente (posição 62): '1' = CPF, '2' = CNPJ.
+                var tipoInscricaoCedente = registro.Substring(61, 1);
+
+                // Número da inscrição do cedente 9(15) (posições 63-77), preenchido com zeros à esquerda.
+                var inscricaoCedente = registro.Substring(62, 15).Trim();
+
+                // Normaliza o número para o tamanho do documento: 11 (CPF) ou 14 (CNPJ).
+                var tamanhoDocumentoCedente = tipoInscricaoCedente == "1" ? 11 : 14;
+                if (inscricaoCedente.Length > tamanhoDocumentoCedente)
+                    inscricaoCedente = inscricaoCedente.Substring(inscricaoCedente.Length - tamanhoDocumentoCedente);
+
+                // Só atribui quando for um documento válido: o setter de CPFCNPJ exige 11/14 dígitos
+                // (e lança exceção caso contrário). Ignora campo em branco ou preenchido só com zeros.
+                if ((inscricaoCedente.Length == 11 || inscricaoCedente.Length == 14)
+                    && long.TryParse(inscricaoCedente, out _)
+                    && inscricaoCedente.Trim('0').Length > 0)
+                    boleto.Cedente.CPFCNPJ = inscricaoCedente;
+
+                // Nome do cedente X(30) (posições 78-107).
+                boleto.Cedente.Nome = registro.Substring(77, 30).Trim();
+
+                // Data de emissão do título (DDMMAAAA) - posições 182-189.
+                var dataEmissao = Utils.ToInt32(registro.Substring(181, 8));
+                if (dataEmissao > 0)
+                    boleto.DataEmissao = Utils.ToDateTime(dataEmissao.ToString("##-##-####"));
+
+                // Data limite para pagamento do título (DDMMAAAA) - posições 232-239.
+                var dataLimitePagamento = Utils.ToInt32(registro.Substring(231, 8));
+                if (dataLimitePagamento > 0)
+                    boleto.DataLimitePagamento = Utils.ToDateTime(dataLimitePagamento.ToString("##-##-####"));
+
+                // Registro Retorno
+                boleto.RegistroArquivoRetorno = boleto.RegistroArquivoRetorno + registro + Environment.NewLine;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erro ao ler detalhe do arquivo de RETORNO / CNAB 240 / G (Varredura DDA).", ex);
+            }
+        }
     }
 }

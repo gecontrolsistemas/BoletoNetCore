@@ -173,7 +173,7 @@ namespace BoletoNetCore
                 reg.CamposEDI.Add(new TCampoRegistroEDI(TTiposDadoEDI.ediAlphaAliEsquerda_____, 0047, 030, 0, this.Beneficiario.Nome, ' '));    //047-076 Código da Empresa
                 reg.CamposEDI.Add(new TCampoRegistroEDI(TTiposDadoEDI.ediAlphaAliEsquerda_____, 0077, 003, 0, "084", ' '));                     //077-079 Número do banco Uniprime na Câmara de Compensação
                 reg.CamposEDI.Add(new TCampoRegistroEDI(TTiposDadoEDI.ediAlphaAliEsquerda_____, 0080, 015, 0, "UNIPRIME", ' '));                        //080-094 Nome do Banco por Extenso
-                reg.CamposEDI.Add(new TCampoRegistroEDI(TTiposDadoEDI.ediAlphaAliEsquerda_____, 0095, 006, 0, DateTime.Today.ToString("ddMMyy"), ' ')); //095-100 Data da Gravação do Arquivo
+                reg.CamposEDI.Add(new TCampoRegistroEDI(TTiposDadoEDI.ediAlphaAliEsquerda_____, 0095, 006, 0, DataGeracao.Date.ToString("ddMMyy"), ' ')); //095-100 Data da Gravação do Arquivo
                 reg.CamposEDI.Add(new TCampoRegistroEDI(TTiposDadoEDI.ediAlphaAliEsquerda_____, 0101, 008, 0, "", ' '));                                //101-108 Brancos
                 reg.CamposEDI.Add(new TCampoRegistroEDI(TTiposDadoEDI.ediAlphaAliEsquerda_____, 0109, 002, 0, "MX", ' '));                              //109-110 Identificação do Sistema
                 reg.CamposEDI.Add(new TCampoRegistroEDI(TTiposDadoEDI.ediNumericoSemSeparador_, 0111, 007, 0, numeroArquivoRemessa.ToString(), '0'));   //111-117 No Sequencial de Remessa

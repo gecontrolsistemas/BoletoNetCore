@@ -114,7 +114,7 @@ namespace BoletoNetCore
                 tregistroEdi.CamposEDI.Add(new TCampoRegistroEDI(TTiposDadoEDI.ediNumericoSemSeparador_, 41, 6, 0, "000000", '0'));
                 tregistroEdi.CamposEDI.Add(new TCampoRegistroEDI(TTiposDadoEDI.ediAlphaAliEsquerda_____, 47, 30, 0, Beneficiario.Nome.ToUpper(), ' '));
                 tregistroEdi.CamposEDI.Add(new TCampoRegistroEDI(TTiposDadoEDI.ediAlphaAliEsquerda_____, 77, 18, 0, "085CECRED", ' '));
-                tregistroEdi.CamposEDI.Add(new TCampoRegistroEDI(TTiposDadoEDI.ediDataDDMMAA___________, 95, 6, 0, DateTime.Now, ' '));
+                tregistroEdi.CamposEDI.Add(new TCampoRegistroEDI(TTiposDadoEDI.ediDataDDMMAA___________, 95, 6, 0, DataGeracao, ' '));
                 tregistroEdi.CamposEDI.Add(new TCampoRegistroEDI(TTiposDadoEDI.ediNumericoSemSeparador_, 101, 7, 0, numeroArquivoRemessa, '0'));
                 tregistroEdi.CamposEDI.Add(new TCampoRegistroEDI(TTiposDadoEDI.ediAlphaAliEsquerda_____, 108, 22, 0, Empty, ' '));
                 tregistroEdi.CamposEDI.Add(new TCampoRegistroEDI(TTiposDadoEDI.ediNumericoSemSeparador_, 130, 7, 0, Beneficiario.Codigo.ToString(), '0'));

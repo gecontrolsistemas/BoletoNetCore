@@ -233,7 +233,7 @@ namespace BoletoNetCore
             reg.CamposEDI.Add(new TCampoRegistroEDI(TTiposDadoEDI.ediAlphaAliEsquerda_____, 0104, 040, 0, "", ' ')); // 104 a 143 - Mensagem 1
             reg.CamposEDI.Add(new TCampoRegistroEDI(TTiposDadoEDI.ediAlphaAliEsquerda_____, 0144, 040, 0, "", ' ')); // 144 a 183 - Mensagem 2
             reg.CamposEDI.Add(new TCampoRegistroEDI(TTiposDadoEDI.ediAlphaAliDireita______, 0184, 008, 0, numeroArquivoRemessa, '0')); // 184 a 191 - Número remessa/retorno
-            reg.CamposEDI.Add(new TCampoRegistroEDI(TTiposDadoEDI.ediDataDDMMAAAA_________, 0192, 008, 0, DateTime.Today, '0'));  // 192 a 199 - Data de gravação rem./ret.
+            reg.CamposEDI.Add(new TCampoRegistroEDI(TTiposDadoEDI.ediDataDDMMAAAA_________, 0192, 008, 0, DataGeracao.Date, '0'));  // 192 a 199 - Data de gravação rem./ret.
             reg.CamposEDI.Add(new TCampoRegistroEDI(TTiposDadoEDI.ediAlphaAliDireita______, 0200, 008, 0, "", '0')); // 200 a 207 - Data do crédito
             reg.CamposEDI.Add(new TCampoRegistroEDI(TTiposDadoEDI.ediAlphaAliEsquerda_____, 0208, 033, 0, "", ' ')); // 208 a 240 - Uso exclusivo FEBRABAN/CNAB
             reg.CodificarLinha();
@@ -259,8 +259,8 @@ namespace BoletoNetCore
             reg.CamposEDI.Add(new TCampoRegistroEDI(TTiposDadoEDI.ediAlphaAliEsquerda_____, 0103, 030, 0, "SICREDI", ' ')); // 103 a 132 - Nome do banco = "SICREDI"
             reg.CamposEDI.Add(new TCampoRegistroEDI(TTiposDadoEDI.ediAlphaAliEsquerda_____, 0133, 010, 0, "", ' ')); // 133 a 142 - Uso exclusivo FEBRABAN/CNAB
             reg.CamposEDI.Add(new TCampoRegistroEDI(TTiposDadoEDI.ediAlphaAliEsquerda_____, 0143, 001, 0, "1", ' ')); // 143 a 143 - Código Remessa/Retorno = "1" Remessa "2" Retorno
-            reg.CamposEDI.Add(new TCampoRegistroEDI(TTiposDadoEDI.ediDataDDMMAAAA_________, 0144, 008, 0, DateTime.Today, '0'));  // 144 a 151 - Data de geração do arquivo
-            reg.CamposEDI.Add(new TCampoRegistroEDI(TTiposDadoEDI.ediHoraHHMMSS___________, 0144, 008, 0, DateTime.Now, '0')); // 152 a 157 - Hora de geração do arquivo
+            reg.CamposEDI.Add(new TCampoRegistroEDI(TTiposDadoEDI.ediDataDDMMAAAA_________, 0144, 008, 0, DataGeracao.Date, '0'));  // 144 a 151 - Data de geração do arquivo
+            reg.CamposEDI.Add(new TCampoRegistroEDI(TTiposDadoEDI.ediHoraHHMMSS___________, 0144, 008, 0, DataGeracao, '0')); // 152 a 157 - Hora de geração do arquivo
             reg.CamposEDI.Add(new TCampoRegistroEDI(TTiposDadoEDI.ediAlphaAliDireita______, 0158, 006, 0, numeroArquivoRemessa, '0')); // 158 a 163 - Número sequencial do arquivo
             reg.CamposEDI.Add(new TCampoRegistroEDI(TTiposDadoEDI.ediAlphaAliDireita______, 0164, 003, 0, "081", '0')); // 164 a 166 - Nº da versão do leiaute do arquivo = "081"
             reg.CamposEDI.Add(new TCampoRegistroEDI(TTiposDadoEDI.ediAlphaAliDireita______, 0167, 005, 0, "01600", '0')); // 167 a 171 - Densidade de gravação do arquivo = "01600"

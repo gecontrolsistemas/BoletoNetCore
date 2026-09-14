@@ -19,6 +19,29 @@ namespace BoletoNetCore
         public bool RemoveAcentosArquivoRemessa { get; protected set; }
         public bool DescontoDuplicatas { get; protected set; }
 
+        private DateTime? _dataGeracao;
+
+        /// <summary>
+        /// Data e hora gravadas nos campos de geração do arquivo de remessa e usadas no nome do
+        /// arquivo.
+        /// </summary>
+        /// <remarks>
+        /// Sem atribuição, cada leitura devolve <see cref="DateTime.Now"/> — o comportamento que a
+        /// biblioteca sempre teve. Quem gera o arquivo pode atribuí-la para que o carimbo seja o
+        /// relógio civil de quem emite, e não o do processo: num contêiner em UTC, um arquivo
+        /// gerado às 22h em Brasília sai datado do dia seguinte. Atribuir também torna a saída
+        /// determinística, que é o que permite testar o arquivo byte a byte.
+        ///
+        /// Atribuir <c>default(DateTime)</c> devolve o relógio da máquina. A instância do banco vem
+        /// de <see cref="Banco.Instancia(int)"/> e é a mesma no processo inteiro: sem essa volta,
+        /// uma atribuição feita uma vez valeria para todo arquivo gerado depois dela.
+        /// </remarks>
+        public DateTime DataGeracao
+        {
+            get => _dataGeracao ?? DateTime.Now;
+            set => _dataGeracao = value == default(DateTime) ? (DateTime?)null : value;
+        }
+
         public void ValidaBoleto(Boleto boleto)
         {
         }

@@ -32,6 +32,13 @@ namespace BoletoNetCore
         bool DescontoDuplicatas { get; }
 
         /// <summary>
+        /// Data e hora gravadas nos campos de geração do arquivo de remessa e usadas no nome do
+        /// arquivo. Quando não é atribuída, vale o relógio da máquina no momento da leitura, e
+        /// atribuir <c>default(DateTime)</c> volta a esse comportamento.
+        /// </summary>
+        DateTime DataGeracao { get; set; }
+
+        /// <summary>
         /// Formata o beneficiï¿½rio (Agï¿½ncia, Conta, Cï¿½digo)
         /// </summary>
         void FormataBeneficiario();

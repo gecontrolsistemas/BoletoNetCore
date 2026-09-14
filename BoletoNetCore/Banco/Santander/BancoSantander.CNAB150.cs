@@ -16,7 +16,7 @@ namespace BoletoNetCore
                 reg.Adicionar(TTiposDadoEDI.ediAlphaAliEsquerda_____, 0023, 020, 0, Beneficiario.Nome, ' ');
                 reg.Adicionar(TTiposDadoEDI.ediNumericoSemSeparador_, 0043, 003, 0, "033", '0');
                 reg.Adicionar(TTiposDadoEDI.ediAlphaAliEsquerda_____, 0046, 020, 0, "BANCO SANTANDER", ' ');
-                reg.Adicionar(TTiposDadoEDI.ediDataAAAAMMDD_________, 0066, 008, 0, DateTime.Now, ' ');
+                reg.Adicionar(TTiposDadoEDI.ediDataAAAAMMDD_________, 0066, 008, 0, DataGeracao, ' ');
                 reg.Adicionar(TTiposDadoEDI.ediNumericoSemSeparador_, 0074, 006, 0, numeroArquivoRemessa, '0');
                 reg.Adicionar(TTiposDadoEDI.ediNumericoSemSeparador_, 0080, 002, 0, "06", '0');
                 reg.Adicionar(TTiposDadoEDI.ediAlphaAliEsquerda_____, 0082, 017, 0, "DEBITO AUTOMATICO", ' ');
@@ -57,10 +57,10 @@ namespace BoletoNetCore
                 var reg = new TRegistroEDI();
                 reg.Adicionar(TTiposDadoEDI.ediAlphaAliEsquerda_____, 0001, 001, 0, "J", ' ');
                 reg.Adicionar(TTiposDadoEDI.ediNumericoSemSeparador_, 0002, 006, 0, numeroArquivoRemessa, '0');
-                reg.Adicionar(TTiposDadoEDI.ediDataAAAAMMDD_________, 0008, 008, 0, DateTime.Now, ' ');
+                reg.Adicionar(TTiposDadoEDI.ediDataAAAAMMDD_________, 0008, 008, 0, DataGeracao, ' ');
                 reg.Adicionar(TTiposDadoEDI.ediNumericoSemSeparador_, 0016, 006, 0, numeroRegistrosNoLote, '0');
                 reg.Adicionar(TTiposDadoEDI.ediNumericoSemSeparador_, 0022, 017, 2, valorCobrancaSimples, '0');
-                reg.Adicionar(TTiposDadoEDI.ediDataAAAAMMDD_________, 0039, 008, 0, DateTime.Now, ' ');
+                reg.Adicionar(TTiposDadoEDI.ediDataAAAAMMDD_________, 0039, 008, 0, DataGeracao, ' ');
                 reg.Adicionar(TTiposDadoEDI.ediAlphaAliEsquerda_____, 0047, 104, 0, Empty, ' ');
                 reg.CodificarLinha();
                 return reg.LinhaRegistro;

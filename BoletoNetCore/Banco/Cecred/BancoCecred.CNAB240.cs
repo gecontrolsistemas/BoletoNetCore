@@ -29,8 +29,8 @@ namespace BoletoNetCore
                 tregistroEdi.Adicionar(TTiposDadoEDI.ediAlphaAliEsquerda_____, 103, 30, 0, "VIACREDI", ' ');
                 tregistroEdi.Adicionar(TTiposDadoEDI.ediAlphaAliEsquerda_____, 133, 10, 0, Empty, ' ');
                 tregistroEdi.Adicionar(TTiposDadoEDI.ediNumericoSemSeparador_, 143, 1, 0, "1", '0');
-                tregistroEdi.Adicionar(TTiposDadoEDI.ediDataDDMMAAAA_________, 144, 8, 0, DateTime.Now, ' ');
-                tregistroEdi.Adicionar(TTiposDadoEDI.ediHoraHHMMSS___________, 152, 6, 0, DateTime.Now, ' ');
+                tregistroEdi.Adicionar(TTiposDadoEDI.ediDataDDMMAAAA_________, 144, 8, 0, DataGeracao, ' ');
+                tregistroEdi.Adicionar(TTiposDadoEDI.ediHoraHHMMSS___________, 152, 6, 0, DataGeracao, ' ');
                 tregistroEdi.Adicionar(TTiposDadoEDI.ediNumericoSemSeparador_, 158, 6, 0, numeroArquivoRemessa, '0');
                 tregistroEdi.Adicionar(TTiposDadoEDI.ediNumericoSemSeparador_, 164, 3, 0, "087", '0');
                 tregistroEdi.Adicionar(TTiposDadoEDI.ediNumericoSemSeparador_, 167, 5, 0, "0", '0');
@@ -71,7 +71,7 @@ namespace BoletoNetCore
                 tregistroEdi.Adicionar(TTiposDadoEDI.ediAlphaAliEsquerda_____, 104, 40, 0, Empty, ' ');
                 tregistroEdi.Adicionar(TTiposDadoEDI.ediAlphaAliEsquerda_____, 144, 40, 0, Empty, ' ');
                 tregistroEdi.Adicionar(TTiposDadoEDI.ediNumericoSemSeparador_, 184, 8, 0, numeroArquivoRemessa, '0');
-                tregistroEdi.Adicionar(TTiposDadoEDI.ediDataDDMMAAAA_________, 192, 8, 0, DateTime.Now, ' ');
+                tregistroEdi.Adicionar(TTiposDadoEDI.ediDataDDMMAAAA_________, 192, 8, 0, DataGeracao, ' ');
                 tregistroEdi.Adicionar(TTiposDadoEDI.ediNumericoSemSeparador_, 200, 8, 0, "0", '0');
                 tregistroEdi.Adicionar(TTiposDadoEDI.ediAlphaAliEsquerda_____, 208, 33, 0, Empty, ' ');
                 tregistroEdi.CodificarLinha();

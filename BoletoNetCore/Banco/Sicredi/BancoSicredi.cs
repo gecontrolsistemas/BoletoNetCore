@@ -29,7 +29,7 @@ namespace BoletoNetCore
 
         public override string FormatarNomeArquivoRemessa(int sequencial)
         {
-            var agora = DateTime.Now;
+            var agora = DataGeracao;
 
             var mes = agora.Month.ToString();
             if (mes == "10") mes = "O";
